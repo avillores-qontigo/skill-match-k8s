@@ -1,0 +1,63 @@
+# Build output
+**/bin/
+**/obj/
+[Oo]ut/
+artifacts/
+publish/
+
+# Visual Studio / Rider / VS Code
+.vs/
+.idea/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.DotSettings.user
+*.code-workspace
+
+# Test results and coverage
+TestResults/
+[Tt]est[Rr]esult*/
+coverage/
+*.coverage
+*.coveragexml
+coverage.*.xml
+*.trx
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+
+# Logs
+Logs/
+*.log
+
+# Secrets and local environment (never commit credentials)
+.env
+.env.*
+!.env.example
+appsettings.*.local.json
+secrets.json
+*.pem
+*.pfx
+*.key
+
+# Kubernetes local secrets / overrides
+*.secret.yaml
+*.secret.yml
+secrets.dev.yaml
+values.dev.yaml
+kubeconfig
+*.kubeconfig
+
+# Claude Code local files
+.claude/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini

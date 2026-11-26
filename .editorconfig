@@ -1,0 +1,349 @@
+# Global editor config file for enforcing our C# coding guidelines: https://qontigo-cloud.atlassian.net/wiki/spaces/PE/pages/29692313/C+Coding+Guidelines
+# NOTE: This should not be altered without discussing with the Pipeline team first as these are standard we apply across Engineering
+# This file is maintained in the Qontigo/core-coding-standards repo and that copy will overwrite any changes made in any repo using the file
+
+# cspell:words recognise,recognising,Specflow,accessibilities
+# cspell:ignore ests,PRNGs,projitems,resx,vsct,vsixmanifest
+
+# top-most EditorConfig file
+root = true
+
+[*]
+indent_style = space
+# 4 spaces is the standard indentation depth for the primary languages used across this organisation.
+# References:
+# - C# / .NET - https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions
+# - Python (PEP 8) - https://peps.python.org/pep-0008/#indentation
+# - Kotlin - https://kotlinlang.org/docs/coding-conventions.html#indentation
+# Note: Java uses 3 spaces (Axioma standard - see [*.java] below); XML, JSON, and YAML use 2 spaces - both overrides are below.
+indent_size = 4
+trim_trailing_whitespace = true
+insert_final_newline = true
+# UTF-8 without BOM is the default for all files in this repository.
+# References:
+# - Unicode FAQ - "use of BOM is neither required nor recommended for UTF-8": https://www.unicode.org/faq/utf_bom.html#bom5
+# - JSON - RFC 8259 §8.1 explicitly forbids BOM: https://datatracker.ietf.org/doc/html/rfc8259#section-8.1
+# - Shell scripts - POSIX requires #! as the first two bytes; a BOM destroys that: https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_01
+# - PowerShell 6+ - Microsoft recommends UTF-8 without BOM: https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_character_encoding
+# - The .NET runtime - UTF-8 without BOM is the default encoding for source files and the standard encoding for the runtime is here: https://github.com/dotnet/runtime/blob/main/.editorconfig
+charset = utf-8
+
+# XML project files
+[*.{csproj,vbproj,vcxproj,vcxproj.filters,proj,projitems,shproj,sqlproj,sfproj}]
+indent_size = 2
+
+# XML config files
+[*.{props,targets,ruleset,config,nuspec,resx,vsixmanifest,vsct}]
+indent_size = 2
+
+# XML schema and data files - no dedicated section existed for these, so they fell back to the default 4-space indent even though every other XML-derived format above already uses 2-space.
+[*.{xml,xsd}]
+indent_size = 2
+
+# VS generates .resx files without a final newline and with trailing whitespace in some elements
+[*.resx]
+insert_final_newline = false
+trim_trailing_whitespace = false
+
+# JSON files
+[*.json]
+indent_size = 2
+
+# YAML files
+[*.{yml,yaml}]
+indent_size = 2
+
+# Terraform files - `terraform fmt`, the canonical formatter, always uses 2-space indentation
+[*.tf]
+indent_size = 2
+
+# CSV files are data, not code - unlike source code, leading/trailing whitespace and a BOM can be semantically meaningful (a field's actual value, or an Excel-on-Windows UTF-8 detection signal).
+# Fully unset every property so no editor or tool "corrects" a data file's content on save.
+[*.csv]
+indent_style = unset
+indent_size = unset
+trim_trailing_whitespace = unset
+insert_final_newline = unset
+charset = unset
+end_of_line = unset
+
+[*.md]
+# CommonMark §6.7 defines two trailing spaces as a hard line break: https://spec.commonmark.org/0.31.2/#hard-line-breaks
+# Trimming trailing whitespace would silently destroy those breaks.
+trim_trailing_whitespace = false
+# Markdown has no single correct indent width: a nested list item aligns under the text following its marker,
+# which varies with the marker itself (2 spaces for "- "/"* ", 3 for "1. ", 4 for "10. ", etc.). Enforcing a
+# fixed indent_size against that would flag correctly-formatted nested lists as violations, so leave it unset
+# rather than inherit the 4-space default from [*] above.
+indent_size = unset
+
+# Shell script files - must be LF; the kernel reads the shebang as raw bytes and a CRLF would break it.
+# Extended to .bash/.bats for consistency with .gitattributes, which already treats all three the same.
+# 2-space indentation is the common shell script convention (e.g. Google Shell Style Guide).
+[*.{sh,bash,bats}]
+end_of_line = lf
+indent_size = 2
+
+# Windows script files - CRLF required for .bat/.cmd (CMD processor fails on LF-only files);
+# .ps1/.psm1 use CRLF by repo convention (consistent with all other non-shell files, and works fine on Linux pwsh)
+[*.{bat,cmd,ps1,psm1}]
+end_of_line = crlf
+
+# Java files - Axioma standard is 3-space indentation, enforced by AxiomaCheckstyleConfig-Strict.xml
+# and the Eclipse formatter profile (AxiomaEclipseFormatterConfig.xml) in CodeStandards-JavaCodeStandards.
+[*.java]
+indent_size = 3
+
+# SQL files - no consistent historical indentation across ~2000 files (a mix of tabs, 3-space and 4-space),
+# Enforcing an indent width therefore only produces noise on every touched legacy file, so leave indentation unmanaged.
+[*.sql]
+indent_style = unset
+indent_size = unset
+
+# C# files
+[*.cs]
+end_of_line = lf
+# New line preferences
+csharp_preserve_single_line_blocks = true
+csharp_preserve_single_line_statements = true
+csharp_new_line_before_open_brace = all
+csharp_new_line_before_else = true
+csharp_new_line_before_catch = true
+csharp_new_line_before_finally = true
+csharp_new_line_before_members_in_object_initializers = true
+csharp_new_line_before_members_in_anonymous_types = true
+csharp_new_line_between_query_expression_clauses = true
+curly_bracket_next_line = true
+
+# Indentation preferences
+csharp_indent_block_contents = true
+csharp_indent_braces = false
+csharp_indent_case_contents = true
+csharp_indent_case_contents_when_block = true
+csharp_indent_switch_labels = true
+csharp_indent_labels = one_less_than_current
+
+# Modifier preferences
+csharp_preferred_modifier_order = public,private,protected,internal,static,extern,new,virtual,abstract,sealed,override,readonly,unsafe,volatile,async:suggestion
+
+# avoid this. unless absolutely necessary
+dotnet_style_qualification_for_field = false:warning
+dotnet_style_qualification_for_property = false:warning
+dotnet_style_qualification_for_method = false:warning
+dotnet_style_qualification_for_event = false:warning
+
+# types: use keywords instead of BCL types, and permit var only when the type is clear
+csharp_style_var_for_built_in_types = true:warning
+csharp_style_var_when_type_is_apparent = true:warning
+csharp_style_var_elsewhere = false:none
+dotnet_style_predefined_type_for_locals_parameters_members = true:warning
+dotnet_style_predefined_type_for_member_access = true:warning
+
+# name all constant fields using PascalCase
+dotnet_naming_rule.constant_fields_must_be_pascal_case.severity = warning
+dotnet_naming_rule.constant_fields_must_be_pascal_case.symbols = constant_fields
+dotnet_naming_rule.constant_fields_must_be_pascal_case.style = pascal_case
+dotnet_naming_symbols.constant_fields.applicable_kinds = field
+dotnet_naming_symbols.constant_fields.required_modifiers = const
+
+# name all static readonly fields using PascalCase
+dotnet_naming_rule.static_readonly_fields_must_be_pascal_case.severity = warning
+dotnet_naming_rule.static_readonly_fields_must_be_pascal_case.symbols = static_readonly_fields
+dotnet_naming_rule.static_readonly_fields_must_be_pascal_case.style = pascal_case
+dotnet_naming_symbols.static_readonly_fields.applicable_kinds = field
+dotnet_naming_symbols.static_readonly_fields.required_modifiers = static, readonly
+
+# name all static fields using PascalCase
+dotnet_naming_rule.static_fields_must_be_pascal_case.severity = warning
+dotnet_naming_rule.static_fields_must_be_pascal_case.symbols = static_fields
+dotnet_naming_rule.static_fields_must_be_pascal_case.style = pascal_case
+dotnet_naming_symbols.static_fields.applicable_kinds = field
+dotnet_naming_symbols.static_fields.required_modifiers = static
+
+# public fields should be PascalCase
+dotnet_naming_rule.public_field_must_be_pascal_case_with_underscore.severity = warning
+dotnet_naming_rule.public_field_must_be_pascal_case_with_underscore.symbols = public_fields
+dotnet_naming_rule.public_field_must_be_pascal_case_with_underscore.style = pascal_case
+dotnet_naming_symbols.public_fields.applicable_accessibilities = public
+dotnet_naming_symbols.public_fields.applicable_kinds = field
+
+# protected fields should be PascalCase
+dotnet_naming_rule.protected_field_must_be_pascal_case_with_underscore.severity = warning
+dotnet_naming_rule.protected_field_must_be_pascal_case_with_underscore.symbols = protected_fields
+dotnet_naming_rule.protected_field_must_be_pascal_case_with_underscore.style = pascal_case
+dotnet_naming_symbols.protected_fields.applicable_accessibilities = protected
+dotnet_naming_symbols.protected_fields.applicable_kinds = field
+
+# other fields should be _camelCase
+dotnet_naming_rule.other_fields_must_be_camel_case_with_underscore.severity = warning
+dotnet_naming_rule.other_fields_must_be_camel_case_with_underscore.symbols = regular_fields
+dotnet_naming_rule.other_fields_must_be_camel_case_with_underscore.style = underscore_prefix
+dotnet_naming_symbols.regular_fields.applicable_accessibilities = private, internal, protected, protected_internal
+dotnet_naming_symbols.regular_fields.applicable_kinds = field
+
+# public members must be capitalized
+dotnet_naming_rule.public_members_must_be_capitalized.severity = warning
+dotnet_naming_rule.public_members_must_be_capitalized.symbols = public_symbols
+dotnet_naming_rule.public_members_must_be_capitalized.style = first_upper
+dotnet_naming_symbols.public_symbols.applicable_accessibilities = public, internal, protected, protected_internal
+dotnet_naming_symbols.public_symbols.applicable_kinds = method, property, event, delegate, field
+
+# parameters must be camelCase
+dotnet_naming_rule.parameters_must_be_camel_case.severity = warning
+dotnet_naming_rule.parameters_must_be_camel_case.symbols = parameters
+dotnet_naming_rule.parameters_must_be_camel_case.style = camel_case
+dotnet_naming_symbols.parameters.applicable_kinds = parameter
+
+# Naming Styles
+# camel_case - Define the camelCase style
+dotnet_naming_style.camel_case.capitalization = camel_case
+
+# pascal_case - Define the Pascal_case style
+dotnet_naming_style.pascal_case.capitalization = pascal_case
+
+# first_upper - The first character must start with an upper-case character
+dotnet_naming_style.first_upper.capitalization = first_word_upper
+
+# underscore_prefix - The first character must be prefixed with an underscore
+dotnet_naming_style.underscore_prefix.capitalization = camel_case
+dotnet_naming_style.underscore_prefix.required_prefix = _
+
+# code style defaults
+csharp_using_directive_placement = outside_namespace:warning
+dotnet_sort_system_directives_first = true
+csharp_prefer_braces = true:silent
+csharp_prefer_static_local_function = true:suggestion
+csharp_prefer_simple_using_statement = false:suggestion
+csharp_style_prefer_switch_expression = true:suggestion
+dotnet_style_require_accessibility_modifiers = for_non_interface_members:warning
+
+# code quality
+dotnet_style_readonly_field = true:warning
+dotnet_code_quality_unused_parameters = non_public:warning
+dotnet_diagnostic.IDE0079.severity = silent # IDE0079: Remove unnecessary suppression
+dotnet_diagnostic.IDE0052.severity = error
+
+# expression-level preferences
+dotnet_style_object_initializer = true:suggestion
+dotnet_style_collection_initializer = true:suggestion
+dotnet_style_explicit_tuple_names = true:none
+dotnet_style_coalesce_expression = true:warning
+dotnet_style_null_propagation = true:warning
+dotnet_style_prefer_is_null_check_over_reference_equality_method = true:suggestion
+dotnet_style_prefer_inferred_tuple_names = true:suggestion
+dotnet_style_prefer_inferred_anonymous_type_member_names = true:suggestion
+dotnet_style_prefer_auto_properties = true:none
+dotnet_style_prefer_conditional_expression_over_assignment = true:suggestion
+dotnet_style_prefer_conditional_expression_over_return = true:suggestion
+csharp_prefer_simple_default_expression = false:suggestion # New C# feature we can't support yet
+
+# expression-bodied members
+csharp_style_expression_bodied_methods = true:suggestion
+csharp_style_expression_bodied_constructors = false:silent
+csharp_style_expression_bodied_operators = true:suggestion
+csharp_style_expression_bodied_properties = true:suggestion
+csharp_style_expression_bodied_indexers = true:suggestion
+csharp_style_expression_bodied_accessors = true:suggestion
+csharp_style_expression_bodied_lambdas = true:suggestion
+csharp_style_expression_bodied_local_functions = true:suggestion
+
+# Pattern matching
+csharp_style_pattern_matching_over_is_with_cast_check = true:warning
+csharp_style_pattern_matching_over_as_with_null_check = true:warning
+csharp_style_inlined_variable_declaration = true:suggestion
+
+# Null checking preferences
+csharp_style_throw_expression = true:suggestion
+csharp_style_conditional_delegate_call = true:suggestion
+
+# Other features
+csharp_style_prefer_index_operator = false:suggestion
+csharp_style_prefer_range_operator = false:suggestion
+csharp_style_pattern_local_over_anonymous_function = false:suggestion
+
+# space preferences
+csharp_space_after_cast = false
+csharp_space_after_colon_in_inheritance_clause = true
+csharp_space_after_comma = true
+csharp_space_after_dot = false
+csharp_space_after_keywords_in_control_flow_statements = true
+csharp_space_after_semicolon_in_for_statement = true
+csharp_space_around_binary_operators = before_and_after
+csharp_space_around_declaration_statements = do_not_ignore
+csharp_space_before_colon_in_inheritance_clause = true
+csharp_space_before_comma = false
+csharp_space_before_dot = false
+csharp_space_before_open_square_brackets = false
+csharp_space_before_semicolon_in_for_statement = false
+csharp_space_between_empty_square_brackets = false
+csharp_space_between_method_call_empty_parameter_list_parentheses = false
+csharp_space_between_method_call_name_and_opening_parenthesis = false
+csharp_space_between_method_call_parameter_list_parentheses = false
+csharp_space_between_method_declaration_empty_parameter_list_parentheses = false
+csharp_space_between_method_declaration_name_and_open_parenthesis = false
+csharp_space_between_method_declaration_parameter_list_parentheses = false
+csharp_space_between_parentheses = false
+csharp_space_between_square_brackets = false
+
+dotnet_diagnostic.CA2254.severity = silent # Logging message template should not vary between calls - can often be a false positive
+dotnet_diagnostic.CA1859.severity = none   # [AN-23824] - The performance gains, if any, disappear with the switch to net10 and this conflicts with Sonar's S3242 rule
+
+# Ignore any generated code
+[*.g.cs]
+generated_code = true
+dotnet_diagnostic.CS1591.severity = none # do not warn about missing documentation
+
+# Suppress issues we don't care about in Tests or which tend to produce "false" positives (e.g not recognising Is.Not.Null as a null check)
+[TestAssemblySet{U,u}p.cs]
+# Roslyn rules
+dotnet_diagnostic.CA1050.severity = none # Declare types in namespaces
+
+# Sonar rules
+dotnet_diagnostic.S1309.severity = none # Do not suppress issues.
+dotnet_diagnostic.S3903.severity = none # Declare types in namespaces
+
+[**{{T,t}est,{T,t}ests,TestBase,TestsBase,Tests.*,TestHelpers/**,TestSupport,SpecflowSteps/**}.cs]
+# Roslyn rules
+dotnet_diagnostic.CA2201.severity = none # Exception type System.Exception is not sufficiently specific
+dotnet_diagnostic.CA1707.severity = none # REmove the underscores from member name - we use these in test/class names
+dotnet_diagnostic.CA1848.severity = none # Use LoggerMessage delegates for improved performance
+
+# Sonar rules
+dotnet_diagnostic.S109.severity = none # Magic numbers should not be used
+dotnet_diagnostic.S112.severity = none # 'System.Exception' should not be thrown by user code.
+dotnet_diagnostic.S1075.severity = none # URIs should not be hardcoded - ok in tests
+dotnet_diagnostic.S1192.severity = none # String literals should not be duplicated - can be clearer in tests if we allow this
+dotnet_diagnostic.S1200.severity = none # Classes should not be coupled to too many other classes (Single Responsibility Principle)
+dotnet_diagnostic.S1309.severity = none # Do not suppress issues.
+dotnet_diagnostic.S1694.severity = none # An abstract class should have both abstract and concrete methods - does not make sense with our test class patterns, introduces more noise
+dotnet_diagnostic.S2245.severity = none # Using pseudorandom number generators (PRNGs) is security-sensitive - should be okay in test projects
+dotnet_diagnostic.S2259.severity = none # Null pointers should not be dereferenced - typically where Sonar does not recognise a .Is.Not.Null check in a test
+dotnet_diagnostic.S2221.severity = none # "Exception" should not be caught when not required by called methods
+dotnet_diagnostic.S2360.severity = none # Optional parameters should not be used
+dotnet_diagnostic.S2696.severity = none # Instance members should not write to "static" fields - typically in a OneTimeSetUp
+dotnet_diagnostic.S3011.severity = none # Make sure that this accessibility bypass is safe here
+dotnet_diagnostic.S3059.severity = none # Types should not have members with visibility set higher than the type's visibility - typically a test fixture is marked internal but the tests need to be public
+dotnet_diagnostic.S3655.severity = none # Empty nullable value should not be accessed - typically where Sonar does not recognise an Is.Not.Null check on a previous line
+dotnet_diagnostic.S3717.severity = none # Track use of "NotImplementedException" - not uncommon in tests where you have to create a stub
+dotnet_diagnostic.S3900.severity = none # Arguments of public methods should be validated against null - typically Sonar is not recognising [TestCase] params
+dotnet_diagnostic.S3903.severity = none # Types should be defined in named namespaces - typically an issue with TestAssemblySetup.cs where it cannot be in a namespace
+dotnet_diagnostic.S3956.severity = none # Refactor this property to use a generic collection designed for inheritance - shouldn't be a concern in tests
+dotnet_diagnostic.S3994.severity = none # URI Parameters should not be strings
+dotnet_diagnostic.S3995.severity = none # URI return values should not be strings
+dotnet_diagnostic.S4005.severity = none # "System.Uri" arguments should be used instead of strings
+dotnet_diagnostic.S4017.severity = none # Method signatures should not contain nested generic types
+dotnet_diagnostic.S4018.severity = none # Generic methods should provide type parameters
+dotnet_diagnostic.S4027.severity = none # Exceptions should provide standard constructors - not really necessary for test exception classes
+dotnet_diagnostic.S4457.severity = none # Parameter validation in "async"/"await" methods should be wrapped
+dotnet_diagnostic.S4792.severity = none # Configuring loggers is security-sensitive
+dotnet_diagnostic.S5332.severity = none # Using http protocol is insecure. Use https instead - should be okay in a test.  Typically these are just fake URLs
+dotnet_diagnostic.S6354.severity = none # Use a testable (date) time provider instead - no point when we are actually in a test
+dotnet_diagnostic.S6444.severity = none # Not specifying a timeout for regular expressions is security-sensitive - safe in tests since everything should be under our control
+
+# API documentation example classes (typically under Documentation/Examples/**) - they mirror request/response payloads for Swagger and legitimately skip XML docs,
+# use literal sample values, and expose simple public members.
+[*{Example,ExampleBase}.cs]
+dotnet_diagnostic.CS1591.severity = none # Missing XML comment for publicly visible type or member - API examples do not need documentation
+dotnet_diagnostic.S109.severity = none # Magic numbers should not be used - ok in API examples
+dotnet_diagnostic.S2339.severity = none # Public constant members should not be used - not an issue in API examples
+dotnet_diagnostic.S3956.severity = none # "Generic.List" instances should not be part of public APIs - not an issue in API examples

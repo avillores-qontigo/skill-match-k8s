@@ -1,0 +1,52 @@
+# Build output (the image build produces its own)
+**/bin
+**/obj
+
+# Source control
+**/.git
+**/.gitignore
+**/.gitattributes
+
+# IDE and tooling
+**/.vs
+**/.vscode
+**/.idea
+**/.classpath
+**/.project
+**/.settings
+**/.toolstarget
+**/*.*proj.user
+**/*.dbmdl
+**/*.jfm
+.claude
+
+# Local environment and secrets
+**/.env
+**/.env.*
+**/secrets.dev.yaml
+**/values.dev.yaml
+**/*.pem
+**/*.pfx
+
+# Docker files themselves are not needed inside the image
+**/.dockerignore
+**/Dockerfile*
+**/docker-compose*
+
+# Deployment manifests and learning notes are not part of the build context
+k8s
+**/charts
+**/docs
+**/azds.yaml
+
+# Node leftovers
+**/node_modules
+**/npm-debug.log
+
+# Test output and logs
+**/TestResults
+**/*.log
+**/Logs
+
+LICENSE
+README.md
