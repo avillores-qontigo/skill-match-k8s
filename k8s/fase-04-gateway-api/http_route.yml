@@ -1,0 +1,31 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: # TODO: nombre de la HTTPRoute
+  namespace: # TODO: namespace del proyecto
+  labels:
+    # TODO: labels
+spec:
+  parentRefs:
+    - name: # TODO: nombre del Gateway
+      namespace: # TODO (opcional si es el mismo namespace)
+      sectionName: # TODO: nombre del listener (opcional)
+  hostnames:
+    - # TODO (opcional)
+  rules:
+    # TODO: una regla por endpoint ("Consultar" y "Obtener oportunidades")
+    - matches:
+        - path:
+            type: # TODO (PathPrefix | Exact)
+            value: # TODO
+          method: # TODO (opcional: GET | POST ...)
+      backendRefs:
+        - name: # TODO: nombre del Service de la API
+          port: # TODO: puerto del Service
+    - matches:
+        - path:
+            type: # TODO
+            value: # TODO
+      backendRefs:
+        - name: # TODO
+          port: # TODO

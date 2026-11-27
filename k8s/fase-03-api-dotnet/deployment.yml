@@ -1,0 +1,83 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: # TODO: nombre del Deployment
+  namespace: # TODO: namespace del proyecto
+  labels:
+    # TODO: labels
+spec:
+  replicas: # TODO (ojo: con HPA activo en la fase 5, quitar este campo)
+  revisionHistoryLimit: # TODO (opcional)
+  selector:
+    matchLabels:
+      # TODO: labels (deben coincidir con template.metadata.labels)
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: # TODO
+      maxUnavailable: # TODO
+  template:
+    metadata:
+      labels:
+        # TODO: labels (las usan el Service y la NetworkPolicy)
+    spec:
+      containers:
+        - name: # TODO
+          image: # TODO (imagen:tag de la API)
+          imagePullPolicy: # TODO (IfNotPresent | Always | Never)
+          ports:
+            - name: # TODO
+              containerPort: # TODO
+          env:
+            # TODO: variables individuales desde el ConfigMap
+            - name: # TODO
+              valueFrom:
+                configMapKeyRef:
+                  name: # TODO: nombre del ConfigMap
+                  key: # TODO
+            # TODO: credenciales desde el Secret de la fase 2
+            - name: # TODO
+              valueFrom:
+                secretKeyRef:
+                  name: # TODO: nombre del Secret de Postgres
+                  key: # TODO
+          envFrom:
+            - configMapRef:
+                name: # TODO: nombre del ConfigMap (carga todas las claves)
+          resources:
+            requests:
+              cpu: # TODO
+              memory: # TODO
+            limits:
+              cpu: # TODO
+              memory: # TODO
+          startupProbe:
+            httpGet:
+              path: # TODO
+              port: # TODO
+            failureThreshold: # TODO
+            periodSeconds: # TODO
+          readinessProbe:
+            httpGet:
+              path: # TODO
+              port: # TODO
+            initialDelaySeconds: # TODO
+            periodSeconds: # TODO
+            timeoutSeconds: # TODO
+            failureThreshold: # TODO
+          livenessProbe:
+            httpGet:
+              path: # TODO
+              port: # TODO
+            initialDelaySeconds: # TODO
+            periodSeconds: # TODO
+            timeoutSeconds: # TODO
+            failureThreshold: # TODO
+          volumeMounts:
+            - name: # TODO: nombre del volumen
+              mountPath: # TODO
+              readOnly: true
+      volumes:
+        - name: # TODO
+          configMap:
+            name: # TODO: nombre del ConfigMap

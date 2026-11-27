@@ -1,0 +1,34 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: # TODO: nombre del HPA
+  namespace: # TODO: namespace del proyecto
+  labels:
+    # TODO: labels
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: # TODO: nombre del Deployment de la API
+  minReplicas: # TODO (1)
+  maxReplicas: # TODO (2)
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: # TODO (% sobre el request de CPU)
+  behavior:               # opcional
+    scaleUp:
+      stabilizationWindowSeconds: # TODO
+      policies:
+        - type: # TODO (Pods | Percent)
+          value: # TODO
+          periodSeconds: # TODO
+    scaleDown:
+      stabilizationWindowSeconds: # TODO
+      policies:
+        - type: # TODO (Pods | Percent)
+          value: # TODO
+          periodSeconds: # TODO

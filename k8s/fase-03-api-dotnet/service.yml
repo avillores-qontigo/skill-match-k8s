@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: # TODO: nombre del Service (lo referencia la HTTPRoute de la fase 4)
+  namespace: # TODO: namespace del proyecto
+  labels:
+    # TODO: labels
+spec:
+  type: ClusterIP
+  selector:
+    # TODO: labels de los Pods de la API
+  ports:
+    - name: # TODO
+      port: # TODO: puerto del Service
+      targetPort: # TODO: puerto del contenedor (o su nombre)
+      protocol: TCP

@@ -28,7 +28,7 @@ Exponer la API fuera del cluster usando Gateway API: instalar los CRDs y un cont
 5. **¿Cómo se alcanza el `Gateway` desde tu máquina en un cluster local?**
    - *Cómo verificarlo:* mirá el `Service` que crea el controlador (tipo y dirección externa) y probá la forma de llegar desde el host en tu Rancher.
 
-## Referencias
+## Lecturas
 
 - [Gateway API - Handbook](https://k8s.info/docs/advanced/gateway-api): roles, listeners, `parentRefs`, `backendRefs` y cómo leer el `status`.
 - [Ingress - Handbook](https://k8s.info/docs/intermediate/ingress): sirve para entender qué problema resuelve Gateway API frente a Ingress.

@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: # TODO: nombre del StatefulSet
+  namespace: # TODO: namespace del proyecto
+  labels:
+    # TODO: labels
+spec:
+  serviceName: # TODO: nombre del Service headless
+  replicas: # TODO
+  selector:
+    matchLabels:
+      # TODO: labels (deben coincidir con template.metadata.labels)
+  template:
+    metadata:
+      labels:
+        # TODO: labels (las usan el Service y la NetworkPolicy)
+    spec:
+      terminationGracePeriodSeconds: # TODO (opcional)
+      containers:
+        - name: # TODO
+          image: # TODO (imagen:tag de Postgres)
+          imagePullPolicy: # TODO (IfNotPresent | Always | Never)
+          ports:
+            - name: # TODO
+              containerPort: # TODO (5432)
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: # TODO: nombre del Secret
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: # TODO: nombre del Secret
+                  key: POSTGRES_PASSWORD
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: # TODO: nombre del Secret
+                  key: POSTGRES_DB
+            - name: PGDATA
+              value: # TODO (subdirectorio dentro del mountPath, ver pregunta guía 5)
+          resources:
+            requests:
+              cpu: # TODO
+              memory: # TODO
+            limits:
+              cpu: # TODO
+              memory: # TODO
+          volumeMounts:
+            - name: # TODO: nombre del volumeClaimTemplate
+              mountPath: # TODO (ej. /var/lib/postgresql/data)
+          readinessProbe:
+            exec:
+              command: ["pg_isready", "-U", "# TODO: usuario"]
+            initialDelaySeconds: # TODO
+            periodSeconds: # TODO
+          livenessProbe:
+            exec:
+              command: ["pg_isready", "-U", "# TODO: usuario"]
+            initialDelaySeconds: # TODO
+            periodSeconds: # TODO
+  volumeClaimTemplates:
+    - metadata:
+        name: # TODO
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: # TODO (omitir para usar la StorageClass por defecto)
+        resources:
+          requests:
+            storage: # TODO

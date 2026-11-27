@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: # TODO: nombre del Service headless (debe coincidir con spec.serviceName del StatefulSet)
+  namespace: # TODO: namespace del proyecto
+  labels:
+    # TODO: labels
+spec:
+  clusterIP: None         # headless
+  selector:
+    # TODO: labels de los Pods de Postgres
+  ports:
+    - name: # TODO (ej. postgres)
+      port: # TODO (5432)
+      targetPort: # TODO (puerto del contenedor o su nombre)
+      protocol: TCP

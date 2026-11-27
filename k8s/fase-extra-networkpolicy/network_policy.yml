@@ -1,0 +1,45 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: # TODO: nombre de la NetworkPolicy
+  namespace: # TODO: namespace del proyecto
+  labels:
+    # TODO: labels
+spec:
+  podSelector:            # Pods a proteger (Postgres)
+    matchLabels:
+      # TODO: labels de los Pods de Postgres
+  policyTypes:
+    - Ingress
+    # - Egress            # TODO (opcional)
+  ingress:
+    # Variante A: criterios en la MISMA entrada (AND)
+    - from:
+        - podSelector:
+            matchLabels:
+              # TODO: labels de los Pods de la API
+          namespaceSelector:
+            matchLabels:
+              # TODO: labels del namespace (ej. kubernetes.io/metadata.name: <ns>)
+      ports:
+        - protocol: TCP
+          port: # TODO (5432)
+    # Variante B: criterios en entradas SEPARADAS (OR)
+    # - from:
+    #     - podSelector:
+    #         matchLabels:
+    #           # TODO
+    #     - namespaceSelector:
+    #         matchLabels:
+    #           # TODO
+    #   ports:
+    #     - protocol: TCP
+    #       port: # TODO
+  # egress:               # TODO (opcional; recordá permitir DNS si restringís egress)
+  #   - to:
+  #       - podSelector:
+  #           matchLabels:
+  #             # TODO
+  #     ports:
+  #       - protocol: UDP
+  #         port: 53

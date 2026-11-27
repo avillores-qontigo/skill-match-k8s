@@ -27,7 +27,7 @@ Tener un cluster local de Rancher funcionando y saber inspeccionarlo con `kubect
 5. **¿Qué trae tu cluster "de fábrica" que vas a necesitar más adelante (API de métricas, CRDs de Gateway API, controladores de ingreso)?**
    - *Cómo verificarlo:* listá los recursos que expone la API, los CRDs instalados y probá si `kubectl top nodes` responde. Anotá qué falta.
 
-## Referencias
+## Lecturas
 
 - [Setting Up Your Lab - Handbook](https://k8s.info/docs/foundations/setup): compara herramientas de cluster local, contextos y la trampa de las imágenes locales.
 - [Troubleshooting Guide - Handbook](https://k8s.info/docs/intermediate/troubleshooting): método de diagnóstico de arriba hacia abajo (estado, Events, logs, exec).

@@ -1,11 +1,8 @@
-# Kubernetes por práctica: de un namespace a una API con autoscaling
+# Kubernetes Lab
 
 Repositorio de aprendizaje incremental. La idea no es "hacer que funcione", sino entender **por qué** cada recurso existe, qué pasa cuando falla y cómo se diagnostica.
 
 Cada fase agrega una capa sobre la anterior, sobre un mismo sistema que va creciendo: una API .NET que consulta cotizaciones del dólar, decide cuáles son oportunidades y las guarda en Postgres.
-
-> **Aviso:** es un proyecto de práctica de infraestructura. La lógica de "oportunidades" es un ejercicio y no constituye asesoramiento financiero.
-
 ---
 
 ## Qué se construye
@@ -175,7 +172,7 @@ kubectl config current-context
 
 ---
 
-## Referencias
+## Lecturas
 
 - [The Kubernetes Visual Handbook](https://k8s.info/docs/intro): guía interactiva usada como material de consulta.
 - [Documentación oficial de Kubernetes](https://kubernetes.io/docs/)

@@ -27,7 +27,7 @@ Levantar Postgres como `StatefulSet` con identidad de red estable y almacenamien
 5. **¿Qué pasa en el primer arranque si montás el volumen justo en el directorio de datos de Postgres?**
    - *Cómo verificarlo:* mirá los logs del primer arranque y el contenido del punto de montaje. Revisá en la referencia de Storage qué se menciona sobre PostgreSQL.
 
-## Referencias
+## Lecturas
 
 - [StatefulSets - Handbook](https://k8s.info/docs/core/statefulsets): identidad estable, headless Service y comportamiento de los PVC.
 - [Storage (PV y PVC) - Handbook](https://k8s.info/docs/core/storage): aprovisionamiento dinámico, `StorageClass`, políticas de reclaim.

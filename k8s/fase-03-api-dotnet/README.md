@@ -27,7 +27,7 @@ Desplegar la API con su configuración externa, probes bien pensados y actualiza
 5. **En un RollingUpdate, ¿cuántos Pods viejos y nuevos hay en cada instante y qué puede frenar el proceso?**
    - *Cómo verificarlo:* cambiá la imagen (tag) y observá los Pods en vivo, junto con el estado del rollout. Probá distintos valores de `maxSurge`/`maxUnavailable` y revisá si la quota interviene.
 
-## Referencias
+## Lecturas
 
 - [Deployments - Handbook](https://k8s.info/docs/core/deployments): RollingUpdate, `maxSurge`/`maxUnavailable`, rollback.
 - [Services - Handbook](https://k8s.info/docs/core/services): ClusterIP, `port` vs. `targetPort`, selectores y endpoints.

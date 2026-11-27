@@ -26,7 +26,7 @@ Crear un namespace propio para el proyecto y ponerle un presupuesto de recursos 
 5. **¿Qué se lleva puesto borrar un `Namespace` y cómo ves cuánta quota consumiste antes de borrarlo?**
    - *Cómo verificarlo:* mirá `describe` de la `ResourceQuota` (usado vs. máximo). Después borrá un namespace descartable con algunos objetos adentro y listá qué queda.
 
-## Referencias
+## Lecturas
 
 - [Resource Management - Handbook](https://k8s.info/docs/intermediate/resources): requests vs. limits, QoS, `ResourceQuota` y `LimitRange`.
 - [Multi-Tenancy - Handbook](https://k8s.info/docs/advanced/multi-tenancy): cómo se combinan namespace, quota y límites por defecto, y qué NO aísla un namespace.

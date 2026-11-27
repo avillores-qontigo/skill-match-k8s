@@ -24,7 +24,7 @@ Restringir el acceso a Postgres para que solo la API pueda hablarle, y comprobar
 4. **¿Una política de red bloquea `kubectl port-forward` hacia Postgres?**
    - *Cómo verificarlo:* hacé port-forward con la política activa y conectate desde tu máquina. Pensá por qué pasa lo que ves.
 
-## Referencias
+## Lecturas
 
 - [Security Policies - Handbook](https://k8s.info/docs/advanced/security): default-deny, DNS y semántica de los selectores en `NetworkPolicy`.
 - [Network Policies - Kubernetes](https://kubernetes.io/docs/concepts/services-networking/network-policies/): comportamiento oficial y límites del recurso.

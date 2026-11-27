@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: # TODO: nombre del LimitRange
+  namespace: # TODO: namespace del proyecto
+spec:
+  limits:
+    - type: Container
+      default:          # limits por defecto
+        cpu: # TODO
+        memory: # TODO
+      defaultRequest:   # requests por defecto
+        cpu: # TODO
+        memory: # TODO
+      # TODO (opcional): min / max / maxLimitRequestRatio

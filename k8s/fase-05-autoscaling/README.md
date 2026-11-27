@@ -29,7 +29,7 @@ Escalar la API de 1 a 2 réplicas según CPU con un `HorizontalPodAutoscaler` (a
 5. **¿Qué pasa con las réplicas si re-aplicás el manifiesto del `Deployment` mientras el HPA está activo?**
    - *Cómo verificarlo:* dejá el HPA en 2 réplicas, re-aplicá el `Deployment` tal como lo tenés y observá el número de Pods.
 
-## Referencias
+## Lecturas
 
 - [Resource Management (HPA) - Handbook](https://k8s.info/docs/intermediate/resources): requests, limits, la fórmula del HPA y metrics-server.
 - [Horizontal Pod Autoscaling - Kubernetes](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/): algoritmo y `behavior` oficial.

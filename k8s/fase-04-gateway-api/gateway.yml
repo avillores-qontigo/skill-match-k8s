@@ -1,0 +1,17 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: # TODO: nombre del Gateway
+  namespace: # TODO: namespace del proyecto
+  labels:
+    # TODO: labels
+spec:
+  gatewayClassName: # TODO: GatewayClass del controlador instalado (kubectl get gatewayclass)
+  listeners:
+    - name: # TODO
+      port: # TODO
+      protocol: HTTP
+      hostname: # TODO (opcional)
+      allowedRoutes:
+        namespaces:
+          from: # TODO (Same | All | Selector)
