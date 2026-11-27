@@ -3,6 +3,7 @@
 Repositorio de aprendizaje incremental. La idea no es "hacer que funcione", sino entender **por qué** cada recurso existe, qué pasa cuando falla y cómo se diagnostica.
 
 Cada fase agrega una capa sobre la anterior, sobre un mismo sistema que va creciendo: una API .NET que consulta cotizaciones del dólar, decide cuáles son oportunidades y las guarda en Postgres.
+
 ---
 
 ## Qué se construye
